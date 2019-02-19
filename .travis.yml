@@ -1,0 +1,13 @@
+#need super user permissions to make use of docker
+sudo: required
+#need docker preinstalled in travis 
+services:
+  - docker
+#series of setup steps before running tests
+#use tag since dont have id. use dev dockerfile for tests
+before_install:
+  - docker build -t bbmhmmad/docker-react -f Dockerfile.dev .
+#contains all commands to actually run test suite
+# little travis gotcha: travis expects program to exit after tests run so use coverage tool as hacky way to exit after tests run. travis cares about exit code after tests run. anything other than 0 means failed tests
+script:
+  - docker run bbmhmmad/docker-react npm run test -- --coverage
