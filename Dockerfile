@@ -12,6 +12,8 @@ RUN npm run build
 #run phase. get just what you need (build directory) from previous container
 #any block can only have single FROM statement
 FROM nginx
+#nginx runs on port 80 by default
+EXPOSE 80
  # copy something over from a previous phase
 COPY --from=builder /app/build /usr/share/nginx/html
 #nginx image comes with default startup command to start nginx so we dont have to include one
