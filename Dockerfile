@@ -12,7 +12,7 @@ RUN npm run build
 #run phase. get just what you need (build directory) from previous container
 #any block can only have single FROM statement
 FROM nginx
-#nginx runs on port 80 by default
+#nginx runs on port 80 by default. in dev environment this does nothing. more like instruction - hey expose port 80 when running this container but doesnt do anything on local machine. but on elastic beanstalk it will look for EXPOSE instruction for container port to expose to incoming traffic
 EXPOSE 80
  # copy something over from a previous phase
 COPY --from=builder /app/build /usr/share/nginx/html
