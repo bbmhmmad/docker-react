@@ -24,4 +24,4 @@ deploy:
     branch: master #only attempt to deploy app when master branch gets new code
   access_key_id: $AWS_ACCESS_KEY #travis ci env variable
   secret_access_key:
-    secure: "$AWS_SECRET_KEY"
+    secure: $AWS_SECRET_KEY
