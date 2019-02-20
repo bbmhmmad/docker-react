@@ -11,3 +11,17 @@ before_install:
 # little travis gotcha: travis expects program to exit after tests run so use coverage tool as hacky way to exit after tests run. travis cares about exit code after tests run. anything other than 0 means failed tests
 script:
   - docker run bbmhmmad/docker-react npm run test -- --coverage
+
+#Steps to Deploy
+deploy:
+  provider: elasticbeanstalk # travis ci comes preconfigured to deploy app to handful of host providers
+  region: "us-east-2" #depends on where you created elasticbeanstalk instance. DockerReact-env.yf35cpysat.us-east-2.elasticbeanstalk.com 
+  app: "docker-react" #same as app name in elastic beanstalk
+  env: "DockerReact-env" #from elastic beanstalk
+  bucket_name: "elasticbeanstalk-us-east-2-812624990241" #s3 bucket on AWS that travis ci transfers zip file of the app into. auto-generate by elastic beanstalk instance. under s3 tab on aws console
+  bucket_path: "docker-react" #same as app name by default
+  on: 
+    branch: master #only attempt to deploy app when master branch gets new code
+  access_key_id: $AWS_ACCESS_KEY #travis ci env variable
+  secret_access_key:
+    secret: "$AWS_SECRET_KEY"
